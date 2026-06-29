@@ -629,6 +629,21 @@
       font-family: inherit;
     }
     .plz-retry-btn:hover { border-color: #666; color: #CCC; }
+
+    /* ── Zurück-Bar (nur wenn App direkt geöffnet, nicht im iframe) ── */
+    #backBar { display: none; background: var(--yellow); border-bottom: 2px solid var(--yellow-dark); }
+    #backBar a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 20px;
+      color: var(--black);
+      font-size: .9rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    #backBar a:hover { background: var(--yellow-dark); }
   </style>
 </head>
 <body>
@@ -671,6 +686,13 @@
       <button class="plz-retry-btn" onclick="plzZurueck()">&#8592; Andere PLZ eingeben</button>
     </div>
   </div>
+</div>
+
+<!-- ── Zurück-Bar ── -->
+<div id="backBar">
+  <a href="https://www.csa-schaedlingsbekaempfung.de/schaedlingsbekaempfung/">
+    &#8592; Zurück zur Website von CSA Schädlingsbekämpfung
+  </a>
 </div>
 
 <!-- ── Header ── -->
@@ -885,6 +907,11 @@
 </footer>
 
 <script>
+  // Zurück-Bar nur anzeigen wenn App direkt geöffnet (nicht eingebettet per iframe)
+  if (window.self === window.top) {
+    document.getElementById('backBar').style.display = 'block';
+  }
+
   // ── Nutzungszähler ────────────────────────────────────────────────────────
   fetch('/count')
     .then(r => r.json())
