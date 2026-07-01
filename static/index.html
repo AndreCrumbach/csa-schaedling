@@ -866,6 +866,12 @@
       catch { throw new Error(`Server-Fehler ${r.status}`); }
       if (!r.ok) throw new Error(data.detail || `Fehler ${r.status}`);
       showResults(data);
+      const el = document.getElementById('usageCount');
+      if (el) {
+        const current = parseInt(el.textContent.replace(/\./g, ''), 10) || 0;
+        el.textContent = (current + 1).toLocaleString('de-DE');
+        document.getElementById('usageCounter').style.display = 'block';
+      }
     } catch (err) {
       document.getElementById('errorMsg').textContent = err.message;
       document.getElementById('errorCard').classList.add('visible');
